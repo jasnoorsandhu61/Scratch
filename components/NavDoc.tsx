@@ -2,6 +2,7 @@
 
 import { Instagram, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface NavigationDockProps {
   className?: string;
@@ -62,13 +63,23 @@ export function NavigationDock({ className }: NavigationDockProps) {
         <nav className="flex items-center space-x-2 justify-center">
           {links.map((link, index) => (
             <div key={link.title} className="flex items-center">
-              <button
-                onClick={() => link.to ? scrollToSection(link.to) : setModalOpen(true)}
-                className="px-2 py-1 text-white/80 hover:text-white transition-colors cursor-pointer text-[10px] md:text-sm uppercase tracking-wide"
-                style={{ fontFamily: "Flight Maybe Maj, sans-serif" }}
-              >
-                {link.title}
-              </button>
+              {link.isLink ? (
+                <Link
+                  href={link.to || "#"}
+                  className="px-2 py-1 text-white/80 hover:text-white transition-colors cursor-pointer text-[10px] md:text-sm uppercase tracking-wide"
+                  style={{ fontFamily: "Flight Maybe Maj, sans-serif" }}
+                >
+                  {link.title}
+                </Link>
+              ) : (
+                <button
+                  onClick={() => link.to ? scrollToSection(link.to) : setModalOpen(true)}
+                  className="px-2 py-1 text-white/80 hover:text-white transition-colors cursor-pointer text-[10px] md:text-sm uppercase tracking-wide"
+                  style={{ fontFamily: "Flight Maybe Maj, sans-serif" }}
+                >
+                  {link.title}
+                </button>
+              )}
               {index < links.length - 1 && (
                 <span className="text-white/30 hidden md:inline">|</span>
               )}
@@ -92,7 +103,7 @@ export function NavigationDock({ className }: NavigationDockProps) {
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
           <div
             className="bg-black text-white p-8 rounded-lg shadow-lg text-center w-96 relative border border-gray-700 md:w-96 sm:w-full sm:p-6"
-            style={{ fontFamily: "Flight Maybe Maj, sans-serif" }} // Apply font here
+            style={{ fontFamily: "Flight Maybe Maj, sans-serif" }}
           >
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"

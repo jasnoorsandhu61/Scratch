@@ -39,7 +39,7 @@ export default function Home() {
 
     // Check if document is already loaded
     if (document.readyState === "complete") {
-      setTimeout(() => setIsLoading(false), 500); // Minimum loading time for UX
+      setTimeout(() => setIsLoading(false), 3000); // Minimum loading time for UX
     } else {
       window.addEventListener("load", handleLoad);
     }
@@ -85,13 +85,6 @@ export default function Home() {
         <section id="gallery">
           <Gallery />
         </section>
-
-        {/* <div
-          className="bg-[url('/backgroundimage.png')] bg-cover bg-center w-full"
-          style={{ 
-            height: "100vh",
-          }}
-        /> */}
 
         <img src="/backgroundimage.png" alt="Page Tear Image"/>
 
