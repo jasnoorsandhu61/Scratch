@@ -22,104 +22,56 @@ const beforeTracks: Track[] = [
     artist: "DDK",
     duration: "2:39",
     cover: "cover7.webp",
-    url: "/tracks/before/martyr_before.wav"
+    url: "/tracks/before/MARTYR BEFORE.mp3"
   },
   {
     id: 2,
-    title: "Come Thru",
-    artist: "Basu",
-    duration: "2:17",
-    cover: "cover2.webp",
-    url: "/tracks/before/come_thru_before.wav"
-  },
-  {
-    id: 3,
-    title: "ruin my life",
-    artist: "Basu, mttw",
-    duration: "2:10",
-    cover: "cover6.webp",
-    url: "/tracks/before/martyr_raw.wav"
-  },
-  {
-    id: 4,
-    title: "up late, up early",
-    artist: "DDK",
-    duration: "3:12",
-    cover: "cover5.webp",
-    url: "/tracks/before/up_late_up_early_before.wav"
-  },
-  {
-    id: 5,
     title: "Be My Tine",
     artist: "Sam Suen",
     duration: "2:40",
     cover: "cover9.webp",
-    url: "/tracks/before/be_my_tine_before.wav"
+    url: "/tracks/before/BE MY TINE BEFORE.mp3"
   },
   {
-    id: 6,
+    id: 3,
     title: "you could be my woman",
     artist: "Basu",
     duration: "2:46",
     cover: "cover1.webp",
-    url: "/tracks/before/you_could_be_my_woman_before.wav"
+    url: "/tracks/before/TOU COULD BE MY WOMAN BEFORE.mp3"
   },
   {
-    id: 7,
-    title: "Feel This Way",
-    artist: "Lorenzo Barns",
-    duration: "2:24",
-    cover: "cover10.webp",
-    url: "/tracks/before/feel_this_way_before.wav"
-  },
-  {
-    id: 8,
+    id: 4,
     title: "Talk my shit",
     artist: "DDK",
     duration: "1:48",
     cover: "cover11.webp",
-    url: "/tracks/before/talk_my_shit_before.wav"
+    url: "/tracks/before/talk my shit before.mp3"
   },
   {
-    id: 9,
-    title: "Holy",
-    artist: "DDK",
-    duration: "3:35",
-    cover: "cover7.webp",
-    url: "tracks/before/holy_before.wav"
-  },
-  {
-    id: 10,
+    id: 5,
     title: "maryland marauders",
     artist: "DDK",
     duration: "2:16",
     cover: "cover11.webp",
-    url: "tracks/before/maryland_marauders_before.wav"
+    url: "tracks/before/MARYLAND MARAUDERS BEFORE.mp3"
   },
   {
-    id: 11,
+    id: 6,
     title: "WANNA KNOW",
     artist: "Adil Hasan",
     duration: "2:51",
     cover: "cover4.webp",
-    url: "tracks/before/wanna_know_before.wav"
+    url: "tracks/before/WANNA KNOW BEFORE.mp3"
   },
   {
-    id: 12,
+    id: 7,
     title: "Kiss of Death",
     artist: "Sniper J",
     duration: "2:36",
     cover: "cover8.webp",
-    url: "tracks/before/kiss_of_death_before.wav"
+    url: "tracks/before/KOD BEFORE.mp3"
   },
-  {
-    id: 13,
-    title: "Last Time",
-    artist: "Adil Hasan",
-    duration: "2:40",
-    cover: "cover4.webp",
-    url: "tracks/before/last_time_before.wav"
-  }
 ];
 
 // After production tracks (mastered versions)
@@ -130,104 +82,56 @@ const afterTracks: Track[] = [
     artist: "DDK",
     duration: "2:39",
     cover: "cover7.webp",
-    url: "/tracks/after/martyr_after.wav"
+    url: "/tracks/after/MARTYR AFTER.mp3"
   },
   {
     id: 2,
-    title: "Come Thru",
-    artist: "Basu",
-    duration: "2:17",
-    cover: "cover2.webp",
-    url: "/tracks/after/come_thru_before.wav"
-  },
-  {
-    id: 3,
-    title: "ruin my life",
-    artist: "Basu, mttw",
-    duration: "2:10",
-    cover: "cover6.webp",
-    url: "/tracks/after/martyr_after.wav"
-  },
-  {
-    id: 4,
-    title: "up late, up early",
-    artist: "DDK",
-    duration: "3:12",
-    cover: "cover5.webp",
-    url: "/tracks/after/up_late_up_early_after.wav"
-  },
-  {
-    id: 5,
     title: "Be My Tine",
     artist: "Sam Suen",
     duration: "2:40",
     cover: "cover9.webp",
-    url: "/tracks/after/be_my_tine_after.wav"
+    url: "/tracks/after/BE MY TINE AFTER.mp3"
   },
   {
-    id: 6,
+    id: 3,
     title: "you could be my woman",
     artist: "Basu",
     duration: "2:46",
     cover: "cover1.webp",
-    url: "/tracks/after/you_could_be_my_woman_after.wav"
+    url: "/tracks/after/YOU COULD BE MY WOMAN AFTER.mp3"
   },
   {
-    id: 7,
-    title: "Feel This Way",
-    artist: "Lorenzo Barns",
-    duration: "2:24",
-    cover: "cover10.webp",
-    url: "/tracks/after/feel_this_way_after.wav"
-  },
-  {
-    id: 8,
+    id: 4,
     title: "Talk my shit",
     artist: "DDK",
     duration: "1:48",
     cover: "cover11.webp",
-    url: "/tracks/after/talk_my_shit_after.wav"
+    url: "/tracks/after/TALK MY SHIT AFTER.mp3"
   },
   {
-    id: 9,
-    title: "Holy",
-    artist: "DDK",
-    duration: "3:35",
-    cover: "cover7.webp",
-    url: "tracks/after/holy_after.wav"
-  },
-  {
-    id: 10,
+    id: 5,
     title: "maryland marauders",
     artist: "DDK",
     duration: "2:16",
     cover: "cover11.webp",
-    url: "tracks/after/maryland_marauders_after.wav"
+    url: "tracks/after/MARYLAND MARAUDERS AFTER.mp3"
   },
   {
-    id: 11,
+    id: 6,
     title: "WANNA KNOW",
     artist: "Adil Hasan",
     duration: "2:51",
     cover: "cover4.webp",
-    url: "tracks/after/wanna_know_after.wav"
+    url: "tracks/after/WANNA KNOW AFTER.mp3"
   },
   {
-    id: 12,
+    id: 7,
     title: "Kiss of Death",
     artist: "Sniper J",
     duration: "2:36",
     cover: "cover8.webp",
-    url: "tracks/after/kiss_of_death_after.wav"
+    url: "tracks/after/KOD AFTER.mp3"
   },
-  {
-    id: 13,
-    title: "Last Time",
-    artist: "Adil Hasan",
-    duration: "2:40",
-    cover: "cover4.webp",
-    url: "tracks/after/last_time_after.wav"
-  }
 ];
 
 const StyledToggleWrapper = styled.div`
