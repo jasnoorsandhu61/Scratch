@@ -2,21 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
-import Loading from "@/components/Loading";
+import { motion } from "framer-motion";
+
+import IntroScroll from "@/components/IntroScroll";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import MusicPlayer from "@/components/MusicPlayer";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
 import Gallery from "@/components/Gallery";
 import DigiMag from "@/components/DigiMag";
 import Carousel from "@/components/Corousel";
 import Card from "@/components/Card";
-import DesignBreak from "@/components/DesignBreak";
 import { NavigationDock } from "@/components/NavDoc";
-import TestHero from "@/components/TestHero";
 
-// Global Styles for Custom Font
+// Global Styles
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -29,86 +28,54 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Improved loading mechanism
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
-
-    // Check if document is already loaded
-    if (document.readyState === "complete") {
-      setTimeout(() => setIsLoading(false), 3000); // Minimum loading time for UX
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    // Scroll effect for dock
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("load", handleLoad);
     };
   }, []);
-
-  // Loading state with better transition
-  if (isLoading) {
-    return (
-      <>
-        <GlobalStyle />
-        <Loading />
-      </>
-    );
-  }
 
   return (
     <>
       <GlobalStyle />
-      <main className="min-h-screen bg-black text-white">
-       
-
-        <section id="hero">
-          <Hero />
+      <main className="bg-black text-white">
+        {/* Intro Scroll as first section */}
+        <section id="intro-scroll" className="relative">
+          <IntroScroll />
         </section>
 
+        {/* Rest of the homepage content continues seamlessly */}
+        <div className="relative z-0">
+          <section id="hero">
+            <Hero />
+          </section>
 
-        <section id="latest-album">
-          <MusicPlayer />
-        </section>
+          <section id="latest-album">
+            <MusicPlayer />
+          </section>
 
-        <section id="gallery">
-          <Gallery />
-        </section>
+          <section id="gallery">
+            <Gallery />
+          </section>
 
-        <img src="/backgroundimage.webp" alt="Page Tear Image"/>
+          <img src="/backgroundimage.webp" alt="Page Tear Image" />
 
-        <section id="services">
-          <Services />
-        </section>
+          <section id="services">
+            <Services />
+          </section>
 
-        <DigiMag />
-
-        <Card />
-
-        <Carousel />
-
-        <Footer />
+          <DigiMag />
+          <Card />
+          <Carousel />
+          <Footer />
+        </div>
 
         <NavigationDock className={isScrolled ? "scrolled" : ""} />
-
-        
-        {/*
-        <TestHero />
-
-        <MusicPlayer />
-        */}
       </main>
     </>
   );

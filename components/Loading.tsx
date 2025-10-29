@@ -1,62 +1,41 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 interface LoadingProps {
   onLoadingComplete?: () => void;
 }
 
 export default function Loading({ onLoadingComplete }: LoadingProps) {
-  const [isVideoEnded, setIsVideoEnded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      // Ensure video starts playing
-      video.play().catch(console.error);
-    }
-  }, []);
+    // Fade in
+    const fadeInTimer = setTimeout(() => {
+      setOpacity(1);
+    }, 100);
 
-  const handleVideoEnd = () => {
-    setIsVideoEnded(true);
-    // Call the callback function if provided
-    if (onLoadingComplete) {
-      onLoadingComplete();
-    }
-  };
+    // Call onLoadingComplete after fade-in is done
+    const completeTimer = setTimeout(() => {
+      if (onLoadingComplete) {
+        onLoadingComplete();
+      }
+    }, 2000); // Total duration: 2 seconds
 
-  const handleVideoError = () => {
-    console.error('Video failed to load');
-    // Fallback to showing the text loading
-    setIsVideoEnded(true);
-    if (onLoadingComplete) {
-      onLoadingComplete();
-    }
-  };
-
-  // If video has ended, don't render anything (let parent show main content)
-  if (isVideoEnded) {
-    return null;
-  }
+    return () => {
+      clearTimeout(fadeInTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [onLoadingComplete]);
 
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-black relative">
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover"
-        autoPlay
-        muted
-        playsInline
-        onEnded={handleVideoEnd}
-        onError={handleVideoError}
-      >
-        <source src="/loading.mp4" type="video/mp4" />
-        {/* Fallback for browsers that don't support video */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-white text-4xl font-bold animate-pulse">
-            RANGE OF VIEW
-          </h1>
-        </div>
-      </video>
+      <h1
+        className="text-white text-4xl md:text-6xl font-bold"
+        style={{
+          opacity: opacity,
+          transition: 'opacity 1.5s ease-in-out'
+        }}
+      >RANGE OF VIEW
+      </h1>
     </div>
   );
 }
