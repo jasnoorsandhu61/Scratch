@@ -78,76 +78,75 @@ export default function ChatWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg hover:bg-indigo-700"
+          className="fixed bottom-6 left-6 h-14 w-14 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center justify-center shadow-lg hover:bg-black/60 transition-all z-[100]"
           aria-label="Open chat"
         >
-          <MessageCircle className="h-7 w-7" />
+          <MessageCircle className="h-6 w-6" />
         </button>
       )}
 
       {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-6 right-6 w-[340px] max-w-[92vw] max-h-[70vh] rounded-2xl shadow-2xl border border-gray-700 bg-gray-900 flex flex-col overflow-hidden">
+        <div
+          className="fixed bottom-6 left-6 w-[380px] h-[600px] max-w-[92vw] rounded-3xl shadow-2xl border border-white/10 bg-black/50 backdrop-blur-md flex flex-col overflow-hidden z-[100]"
+          style={{ fontFamily: 'Anton-Regular, sans-serif' }}
+        >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700 bg-gray-800 text-white">
-            <span className="font-semibold">Range of View Studios</span>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+            <span className="text-lg text-white/90 tracking-wide">R.O.V. CHAT</span>
             <button
               onClick={() => setOpen(false)}
-              className="hover:text-red-400"
+              className="hover:text-white text-white/60 transition-colors"
               aria-label="Close chat"
             >
-              <X className="h-5 w-5" />
+              <X className="h-6 w-6" />
             </button>
           </div>
 
           {/* Messages */}
           <div
             ref={listRef}
-            className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-900"
+            className="flex-1 overflow-y-auto p-6 space-y-4"
           >
             {messages.length === 0 && (
-              <div className="text-sm text-gray-400">
-                Hi! Ask me about our products, services, or support.
+              <div className="text-sm text-white/50 text-center mt-8">
+                Ask us anything
               </div>
             )}
             {messages.map((m) => (
               <div
                 key={m.id}
-                className={`whitespace-pre-wrap rounded-lg px-3 py-2 text-sm max-w-[80%] ${
-                  m.role === "user"
-                    ? "ml-auto bg-indigo-600 text-white"
-                    : "mr-auto bg-gray-800 text-gray-100 border border-gray-700"
-                }`}
+                className={`whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm max-w-[85%] ${m.role === "user"
+                  ? "ml-auto bg-white/10 text-white border border-white/20"
+                  : "mr-auto bg-white/5 text-white/90 border border-white/10"
+                  }`}
               >
                 {m.text}
               </div>
             ))}
             {loading && (
-              <div className="text-xs text-gray-400">Thinking…</div>
+              <div className="text-xs text-white/40 text-center">Thinking...</div>
             )}
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t border-gray-700 bg-gray-800">
-            <div className="flex items-end gap-2">
+          <div className="p-4 border-t border-white/10">
+            <div className="flex items-end gap-3">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
-                placeholder="Type your message…"
-                rows={2}
-                className="flex-1 resize-none rounded-lg border border-gray-600 bg-gray-900 text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Message..."
+                rows={1}
+                className="flex-1 resize-none rounded-2xl border border-white/20 bg-white/5 text-white placeholder:text-white/30 px-4 py-3 text-sm focus:outline-none focus:border-white/40 transition-all"
               />
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="rounded-lg bg-indigo-600 px-4 py-2 text-white text-sm disabled:opacity-60 hover:bg-indigo-700"
+                className="rounded-2xl bg-white/10 border border-white/20 px-5 py-3 text-white text-sm disabled:opacity-30 hover:bg-white/20 transition-all"
               >
                 Send
               </button>
-            </div>
-            <div className="mt-1 text-[11px] text-gray-500">
-              Enter to send • Shift+Enter for a new line
             </div>
           </div>
         </div>

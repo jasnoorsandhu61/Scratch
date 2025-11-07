@@ -1,18 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createGlobalStyle } from "styled-components";
-import { motion } from "framer-motion";
+import Lenis from "@studio-freight/lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import IntroScroll from "@/components/IntroScroll";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import MusicPlayer from "@/components/MusicPlayer";
+import ZServices from "@/components/zServices";
 import Footer from "@/components/Footer";
-import Gallery from "@/components/Gallery";
 import DigiMag from "@/components/DigiMag";
 import Carousel from "@/components/Corousel";
-import Card from "@/components/Card";
 import { NavigationDock } from "@/components/NavDoc";
 
 // Global Styles
@@ -29,14 +27,42 @@ const GlobalStyle = createGlobalStyle`
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Initialize Lenis smooth scroll with optimized settings
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => 1 - Math.pow(2, -10 * t),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1.5,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    lenisRef.current = lenis;
+
+    // Connect Lenis with GSAP ScrollTrigger for synchronized timing
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
     // Scroll effect for dock
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+      setIsScrolled(scroll > 50);
+    });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      lenis.destroy();
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000);
+      });
     };
   }, []);
 
@@ -51,32 +77,18 @@ export default function Home() {
 
         {/* Rest of the homepage content continues seamlessly */}
         <div className="relative z-0">
-          <section id="hero">
-            <Hero />
-          </section>
-
-          <section id="latest-album">
-            <MusicPlayer />
-          </section>
-
-          <section id="gallery">
-            <Gallery />
-          </section>
-
-          <img src="/backgroundimage.webp" alt="Page Tear Image" />
-
           <section id="services">
-            <Services />
+            <ZServices />
           </section>
 
           <DigiMag />
-          <Card />
           <Carousel />
           <Footer />
         </div>
-
-        <NavigationDock className={isScrolled ? "scrolled" : ""} />
       </main>
+
+      {/* Navigation Dock - Fixed overlay layer */}
+      <NavigationDock className={isScrolled ? "scrolled" : ""} />
     </>
   );
 }

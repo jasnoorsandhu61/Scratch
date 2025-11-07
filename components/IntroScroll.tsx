@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Overlay from "@/components/Overlay";
 
 export default function IntroScroll() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -95,34 +96,44 @@ export default function IntroScroll() {
         });
 
         // ===============================================================
-        // GSAP SCROLL ANIMATION WITH CUSTOM SMOOTHING
+        // GSAP SCROLL ANIMATION WITH LENIS INTEGRATION
         // ===============================================================
-        const sequence = gsap.to(playhead, {
-            frame: frameCount - 1,
-            ease: "none",
-            onUpdate: updateImage,
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".main-scroll",
                 start: "top top",
-                end: "+=4000", // Scroll distance for the intro
-                scrub: 1.2,
-                pin: ".main-scroll", // Pin just the visual part
-                pinSpacing: true, // Allow natural spacing
+                end: "+=2000",
+                scrub: true,
+                pin: ".main-scroll",
+                pinSpacing: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
+                refreshPriority: -1, // Lower priority to work with Lenis
                 onLeave: () => {
-                    // Animation completed, continue seamlessly
                     console.log("Intro scroll animation completed - seamless transition");
                 },
             },
         });
+
+        // Animate the image sequence
+        tl.to(playhead, {
+            frame: frameCount - 1,
+            ease: "none",
+            onUpdate: updateImage,
+        })
+            // Fade out canvas at the end
+            .to(canvas, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.out"
+            }, 0.9);
 
         // ===============================================================
         // CLEANUP
         // ===============================================================
         return () => {
             window.removeEventListener("resize", handleResize);
-            sequence?.kill();
+            tl?.kill();
             ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
@@ -132,6 +143,9 @@ export default function IntroScroll() {
             {/* Main intro scroll container */}
             <div className="w-full h-screen bg-black relative" style={{ zIndex: 10 }}>
                 <div className="main-scroll flex items-center justify-center h-screen w-full overflow-hidden bg-black relative">
+                    {/* Overlay layer - absolute positioned over canvas */}
+                    <Overlay />
+
                     <canvas
                         ref={canvasRef}
                         style={{ visibility: "hidden" }}
@@ -140,7 +154,7 @@ export default function IntroScroll() {
                 </div>
             </div>
             {/* Spacer to account for scroll distance - this creates the scroll room */}
-            <div className="h-[4000px]" />
+            <div className="h-[2000px]" />
         </div>
     );
 }
